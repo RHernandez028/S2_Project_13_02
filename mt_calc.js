@@ -5,8 +5,8 @@
    Tutorial 11
    Case Problem 2
 
-   Author: 
-   Date:   
+   Author: Gabriel Hernandez 
+   Date: 3/25/19
    
    Filename: mt_calc.js
 	
@@ -32,6 +32,26 @@
       Returns the previous expression from the list of expressions in the textStr parameter
 
 */
+
+window.onload = init;
+
+//sets up the calculator for the user
+function init() {
+      var calcButtons = document.getElementsByClassName("calcButton");
+      
+      for (var i = 0; i < calcButtons.length; i++) {
+            calcButtons[i].addEventListener("click", buttonClick);
+      }
+      
+      document.getElementById("calcWindow").addEventListener("onkeydown", calcKeys);
+}
+
+//changes what appears in the calculator window
+function buttonClick() {
+      var calcValue = document.getElementById("calcWindow").value;
+      var calDecimal = document.getElementById("decimal").value;
+      var buttonValue = e.target.value;
+}
 
 
 
