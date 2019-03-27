@@ -40,17 +40,63 @@ function init() {
       var calcButtons = document.getElementsByClassName("calcButton");
       
       for (var i = 0; i < calcButtons.length; i++) {
-            calcButtons[i].addEventListener("click", buttonClick);
+            //calcButtons[i].addEventListener("click", buttonClick);
+            calcButtons[i].onclick = buttonClick;
       }
       
-      document.getElementById("calcWindow").addEventListener("onkeydown", calcKeys);
+      //document.getElementById("calcWindow").addEventListener("onkeydown", calcKeys);
+      document.getElementById("calcWindow").onkeydown = calcKeys;
 }
 
 //changes what appears in the calculator window
-function buttonClick() {
+function buttonClick(e) {
       var calcValue = document.getElementById("calcWindow").value;
-      var calDecimal = document.getElementById("decimal").value;
+      var calcDecimal = document.getElementById("decimals").value;
       var buttonValue = e.target.value;
+
+//assigns functions to happen when buttons are pressed
+switch (buttonValue) {
+      case "del":
+            calcValue = "";
+            break;
+      case "bksp":
+            calcValue = eraseChar(calcValue);
+            break;
+      case "enter":
+            calcValue +=  " = " + evalEq(calcValue, calcDecimal) + "\n";
+            break;
+      case "prev":
+            calcValue += lastEq(calcValue);
+            break;
+      default:
+            calcValue += buttonValue;
+            break;
+      }
+
+document.getElementById("calcWindow").value = calcValue;
+
+//puts cursor in focus on the calculator window
+document.getElementById("calcWindow").focus();
+
+}
+// givea the buttons on the keyboard actions
+function calcKeys(e) {
+      var calcValue = document.getElementById("calcWindow").value;
+      var calcDecimal = document.getElementById("decimals").value;
+
+      switch (e.key) {
+            case "Delete":
+                  calcValue = "";
+                  break;
+            case "Enter":
+                  calcValue += " = " + evalEq(calcValue, calcDecimal);
+                  break;
+            case "ArrowUp":
+                  calcValue += lastEq(calcWindow.value);
+                  e.preventDefault();
+      }
+      
+      document.getElementById("calcWindow").value = calcValue;
 }
 
 
